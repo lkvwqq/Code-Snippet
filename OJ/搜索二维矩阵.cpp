@@ -11,7 +11,6 @@
 // original method
 bool searchMatrix(vector<vector<int>>& matrix, int target)
 {
-  
 	if (0 == matrix.size())
 	{
 		return false;
@@ -49,50 +48,50 @@ bool searchMatrix(vector<vector<int>>& matrix, int target)
 // optimize method
 bool searchMatrix(vector<vector<int>>& matrix, int target)
 {
-    if (0 == matrix.size())
-    {
-        return false;
-    }
+	if (0 == matrix.size())
+	{
+		return false;
+	}
 
-    auto compareFunc = [](const int a, const vector<int> &b) { return a < b[0];};
-    auto iter = upper_bound(matrix.begin(), matrix.end(), target, compareFunc);
+	auto compareFunc = [](const int a, const vector<int> &b) { return a < b[0]; };
+	auto iter = upper_bound(matrix.begin(), matrix.end(), target, compareFunc);
 
-    if (matrix.begin() == iter)
-    {
-        return false;
-    }
+	if (matrix.begin() == iter)
+	{
+		return false;
+	}
 
-    --iter;
-    return binary_search(iter->begin(), iter->end(), target);
+	--iter;
+	return binary_search(iter->begin(), iter->end(), target);
 }
 
 // method 2 假设二维数组中的一维数组的元素个数相同
 bool searchMatrix_2(vector<vector<int>>& matrix, int target)
 {
-  if (0 == matrix.size())
-  {
-      return false;
-  }
-  
+	if (0 == matrix.size())
+	{
+		return false;
+	}
+
 	int m = matrix.size(), n = matrix[0].size();
 	int low = 0, high = m * n - 1;
 	while (low <= high)
-  {
+	{
 		int mid = (high - low) / 2 + low;
 		int x = matrix[mid / n][mid % n];
 		if (x < target)
-    {
+		{
 			low = mid + 1;
 		}
 		else if (x > target)
-    {
+		{
 			high = mid - 1;
 		}
 		else
-    {
+		{
 			return true;
 		}
 	}
-  
+
 	return false;
 }
